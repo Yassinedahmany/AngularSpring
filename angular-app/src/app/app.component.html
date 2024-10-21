@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Product Management</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" routerLink="products-list">HOME</a></li>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <!-- Dropdown -->
+    <div class="dropdown">
+      <button class="btn btn-secondary bg-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        PRODUCT
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a *ngIf="authService.isCreate()" class="dropdown-item" routerLink="add-product">ADD</a></li>
+        <!--<li><hr class="dropdown-divider"></li>-->
+        <li><a class="dropdown-item" routerLink="products-list">LIST</a></li>
+      </ul>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="dropdown">
+      <button class="btn btn-secondary bg-dark dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+        <div *ngIf="authService.isLoggedIn; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>{{ authService.loggedUser }} </ng-template>
+        <ng-template #elseBlock>CONNEXION</ng-template>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a *ngIf="!authService.isLoggedIn" class="dropdown-item" routerLink="login">LOGIN</a></li>
+        <li><a *ngIf="authService.isLoggedIn" class="dropdown-item" (click)="logout()">LOGOUT</a></li>
+      </ul>
+    </div>
+  </ul>
+</nav>
+</body>
+</html>
+<router-outlet></router-outlet>

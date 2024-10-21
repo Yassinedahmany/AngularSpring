@@ -1,0 +1,8 @@
+com/management/MainApplication.class
+com/management/entities/Product.class
+com/management/entities/Category.class
+com/management/services/ProductServiceImpl.class
+com/management/services/ProductService.class
+com/management/restcontrollers/ProductRestController.class
+com/management/repositories/ProductRepository.class
+com/management/entities/ProductNecessary.class

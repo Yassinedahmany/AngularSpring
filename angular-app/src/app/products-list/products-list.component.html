@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <h5>Products List</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let product of products">
+          <tr>
+            <td>{{product.idProduct}}</td>
+            <td>{{product.nameProduct}}</td>
+            <td>{{product.priceProduct}}</td>
+            <td>{{product.dateCreate | date : "dd/MM/yyyy"}}</td>
+            <td>{{product.category?.category}}</td>
+            <td><a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="deleteProduct(product)">DELETE</a></td>
+            <td><a *ngIf="authService.isAdmin()" class="btn btn-success" [routerLink]="['/edit-product',product.idProduct]" >EDIT</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

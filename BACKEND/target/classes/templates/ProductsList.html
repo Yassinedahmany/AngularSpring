@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.2.0/css/bootstrap.min.css" />
+        <meta charset="utf-8">
+        <title>Products List</title>
+    </head>
+    <body>
+        <header>
+          <!-- Navbar -->
+          <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container-fluid">
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarExample01"
+                aria-controls="navbarExample01"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarExample01">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item active">
+                        <a class="nav-link" href="createProduct">Product Creation</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <!-- Navbar -->
+
+          <!-- Jumbotron -->
+          <div class="p-1 text-center bg-light">
+            <h1 class="mb-3">Products List - Thymeleaf</h1>
+          </div>
+          <!-- Jumbotron -->
+        </header>
+            <main class="container mt-5">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Id</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        <tr th:each="product:${productsJsp.content}">
+
+                            <td th:text="${product.idProduct}"></td>
+                            <td th:text="${product.nameProduct}"></td>
+                            <td th:text="${product.priceProduct}"></td>
+                            <td th:text="${product.dateCreate}"></td>
+
+
+
+                            <td><a onclick="return confirm('Are you sure to delete this item ?')"
+                                   th:href="@{deleteProduct(id=${product.idProduct},
+                                   page=${currentPage},
+                                   size=${size}
+                                   )}"
+                            >Delete</a></td>
+                            <td><a th:href="@{showProduct(id=${product.idProduct})}">Edit</a></td>
+                        </tr>
+                  </tbody>
+                 </table>
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}">
+                        <a th:class="${status.index==currentPage?'btn btn-primary':'btn'}"
+                           th:href="@{productsList(page=${status.index}, size=${size})}"
+                           th:text="${status.index}"></a>
+                    </li>
+                </ul>
+
+            </main>
+            <br>
+            <footer class="text-center fixed-bottom text-lg-start bg-light text-muted">
+              <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                © 2023 Copyright:
+                <a class="text-reset fw-bold" href="http://6solutions.com/">6solutions.com</a>
+              </div>
+            </footer>
+    </body>
+</html>
