@@ -21,12 +21,24 @@ export class LoginComponent {
   user = new UserModel();
   constructor(private authService: AuthService,private router : Router) {}
   onLoggedin(){
+
+    this.authService.login(this.user).subscribe({
+      next : (data)=>{
+        let jwtToken = data.headers.get("Authorization")!;
+        this.authService.saveToken(jwtToken);
+        this.router.navigate(['/']);
+      },
+      error : (error : any) =>{
+        this.error = error;
+      }
+    })
+
     //console.log(this.user);
-    let isValidUser : boolean = this.authService.signIn(this.user);
-    if (isValidUser)
-      this.router.navigate(['products-list']);
-    else
-      this.error = 1;
+    //let isValidUser : boolean = this.authService.signIn(this.user);
+    //if (isValidUser)
+      //this.router.navigate(['products-list']);
+    //else
+      //this.error = 1;
       //alert('User authentication failed!!!');
   }
 }

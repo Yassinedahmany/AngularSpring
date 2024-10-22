@@ -13,22 +13,17 @@ import { NgIf, isPlatformBrowser } from '@angular/common';
 export class AppComponent {
   title = 'angular-app';
 
-  constructor(public authService: AuthService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
-    // Check if running in the browser
-    if (isPlatformBrowser(this.platformId)) {
-      const loggedUser = localStorage.getItem('loggedUser');
-      const isLoggedIn = localStorage.getItem('isLoggedIn');
-
-      // Navigate to login if not logged in
-      if (!loggedUser || isLoggedIn === "false") {
-        this.router.navigate(['login']);
-      }else {
-        authService.setLoggedUserLS(loggedUser);
-      }
-    }
-  }
+  constructor(public authService: AuthService, private router: Router) {}
 
   logout() {
     this.authService.logout();
+  }
+
+  ngOnInit() {
+    this.authService.loadToken();
+    if (this.authService.getToken()==null || this.authService.isTokenExpired()){
+      this.router.navigate(['/login']);
+    }
+
   }
 }
